@@ -1,22 +1,20 @@
 package com.example.disney.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "pelicula")
+@Entity(name = "peliculas")
 
 public class Pelicula {
 
@@ -25,8 +23,15 @@ public class Pelicula {
     private Integer Id;
     private String image;
     private String title;
-    private LocalDate doc;
+    private LocalDate createdDate;
     private Integer calification;
+
+    @ManyToMany (mappedBy = "peliculas", cascade = CascadeType.ALL)
     private List<Personaje> personajes;
+
+    public void addPersonaje(Personaje personaje){
+        personajes.add(personaje);
+    }
+
 
 }

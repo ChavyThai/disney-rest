@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>disney</artifactId>
+	<artifactId>disney-rest</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>disney</name>
 	<description>Demo project for Spring Boot</description>

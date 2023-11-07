@@ -1,14 +1,12 @@
 package com.example.disney.controller;
 
 import com.example.disney.model.Pelicula;
+import com.example.disney.model.Personaje;
 import com.example.disney.service.PeliculaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
-
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/peliculas")
@@ -45,5 +43,9 @@ public class PeliculaController {
         peliculaService.deletePeliculaById(peliculaId);
     }
 
+    @PostMapping("/{peliculaId}/add-personaje")
+    public Pelicula addPersonaje(@PathVariable Integer peliculaId, @RequestBody Personaje personaje){
+        return peliculaService.addPersonaje(peliculaId, personaje);
+    }
 
 }

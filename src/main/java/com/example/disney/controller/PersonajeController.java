@@ -1,15 +1,12 @@
 package com.example.disney.controller;
 
+import com.example.disney.model.Pelicula;
 import com.example.disney.model.Personaje;
 import com.example.disney.service.PesonajeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.util.HashMap;
-
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/personajes")
