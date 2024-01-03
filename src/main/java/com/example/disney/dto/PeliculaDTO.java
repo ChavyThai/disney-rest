@@ -1,4 +1,4 @@
-package com.example.disney.model;
+package com.example.disney.dto;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -14,25 +14,21 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "Peliculas")
 
-public class Pelicula {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class PeliculaDTO {
+
+
     private Integer id;
     private String image;
     private String title;
     private LocalDate createdDate;
     private Integer calification;
 
-    @ManyToMany (mappedBy = "peliculas", cascade = CascadeType.ALL)
-    private List<Personaje> personajes =  new ArrayList<>();
 
-    public void addPersonaje(Personaje personaje){
-        personajes.add(personaje);
-        personaje.getPeliculas().add(this);
-        }
+    private List<PersonajeDTO> personajes =  new ArrayList<>();
+
+
 
 }
 

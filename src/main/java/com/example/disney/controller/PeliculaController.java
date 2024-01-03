@@ -1,5 +1,7 @@
 package com.example.disney.controller;
 
+import com.example.disney.dto.PeliculaDTO;
+import com.example.disney.dto.PersonajeDTO;
 import com.example.disney.model.Pelicula;
 import com.example.disney.model.Personaje;
 import com.example.disney.service.PeliculaService;
@@ -23,17 +25,17 @@ public class PeliculaController {
 
 
     @PostMapping
-    public Pelicula createPelicula(@RequestBody Pelicula pelicula) {
+    public PeliculaDTO createPelicula(@RequestBody PeliculaDTO pelicula) {
         return peliculaService.createPelicula(pelicula);
     }
 
     @GetMapping("/{peliculaId}")
-    public Pelicula getPeliculaById(@PathVariable Integer peliculaId) {
+    public PeliculaDTO getPeliculaById(@PathVariable Integer peliculaId) {
         return peliculaService.getPeliculaById(peliculaId);
     }
 
     @PutMapping("/{peliculaId}")
-    public Pelicula updatePelicula(@RequestBody Pelicula pelicula,
+    public PeliculaDTO updatePelicula(@RequestBody PeliculaDTO pelicula,
                                     @PathVariable Integer peliculaId) {
         return peliculaService.updatePelicula(pelicula, peliculaId);
     }
@@ -43,9 +45,5 @@ public class PeliculaController {
         peliculaService.deletePeliculaById(peliculaId);
     }
 
-    @PostMapping("/{peliculaId}/add-personaje")
-    public Pelicula addPersonaje(@PathVariable Integer peliculaId, @RequestBody Personaje personaje){
-        return peliculaService.addPersonaje(peliculaId, personaje);
-    }
 
 }

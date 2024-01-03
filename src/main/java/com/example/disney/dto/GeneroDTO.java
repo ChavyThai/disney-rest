@@ -1,9 +1,8 @@
-package com.example.disney.model;
+package com.example.disney.dto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,13 +12,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity(name = "Genero.")
+@Entity(name = "generoDTO.")
 
-public class Genero {
+public class GeneroDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer Id;
-    private Integer name;
-    private String image;
+        @jakarta.persistence.Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        private Integer Id;
+        private Integer name;
+        private String image;
 }
+

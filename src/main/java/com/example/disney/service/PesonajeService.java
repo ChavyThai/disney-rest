@@ -1,7 +1,9 @@
 package com.example.disney.service;
 
+import com.example.disney.dto.PersonajeDTO;
 import com.example.disney.model.Personaje;
 import com.example.disney.repository.PersonajeRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,27 +16,34 @@ public class PesonajeService {
 
     @Autowired
     PersonajeRepository personajeRepository;
+    @Autowired
+    private ModelMapper modelMapper;
+
 
     public List<Personaje> getAllPersonajes(){
         return personajeRepository.findAll();
     }
 
-    public Personaje createPersonaje(Personaje personaje) {
-        return personajeRepository.saveAndFlush(personaje);
+    public PersonajeDTO createPersonaje(PersonajeDTO personajeDTO) {
+        Personaje personaje = modelMapper.map(personajeDTO, Personaje.class);
+        personaje = personajeRepository.saveAndFlush(personaje);
+        return modelMapper.map(personaje, PersonajeDTO.class);
     }
 
-    public Personaje getPersonajeById(Integer personajeId){
-        return personajeRepository.findById(personajeId).orElseThrow();
+    public PersonajeDTO getPersonajeById(Integer personajeId){
+        Personaje personaje = personajeRepository.findById(personajeId).orElseThrow();
+        return modelMapper.map(personaje, PersonajeDTO.class);
     }
 
-    public Personaje updatePersonaje(Personaje personaje, Integer personajeId){
+    public PersonajeDTO updatePersonaje(PersonajeDTO personaje, Integer personajeId){
        Personaje oldPersonaje = personajeRepository.findById(personajeId).orElseThrow();
        oldPersonaje.setImage(personaje.getImage());
        oldPersonaje.setName(personaje.getName());
        oldPersonaje.setDoB(personaje.getDoB());
        oldPersonaje.setWeight(personaje.getWeight());
        oldPersonaje.setHistory(personaje.getHistory());
-       return personajeRepository.saveAndFlush(oldPersonaje);
+       oldPersonaje = personajeRepository.saveAndFlush(oldPersonaje);
+       return modelMapper.map(oldPersonaje, PersonajeDTO.class);
     }
 
     public void deletePersonajeById(Integer personajeId){

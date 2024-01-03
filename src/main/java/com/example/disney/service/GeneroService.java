@@ -1,7 +1,9 @@
 package com.example.disney.service;
 
+import com.example.disney.dto.GeneroDTO;
 import com.example.disney.model.Genero;
 import com.example.disney.repository.GeneroRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,26 +17,32 @@ public class GeneroService {
 
     @Autowired
     GeneroRepository generoRepository;
+    @Autowired
+    private ModelMapper modelMapper;
 
 
     public List<Genero> getAllGeneros(){
         return generoRepository.findAll();
     }
 
-    public Genero createGenero(@RequestBody Genero genero){
-        return generoRepository.saveAndFlush(genero);
+    public GeneroDTO createGenero(@RequestBody GeneroDTO generoDTO){
+        Genero genero = modelMapper.map(generoDTO, Genero.class);
+        genero = generoRepository.saveAndFlush(genero);
+        return modelMapper.map(genero, GeneroDTO.class);
     }
 
-    public Genero getGeneroById(@PathVariable Integer generoId){
-        return generoRepository.findById(generoId).orElseThrow();
+    public GeneroDTO getGeneroById(@PathVariable Integer generoId){
+        Genero genero = generoRepository.findById(generoId).orElseThrow();
+        return modelMapper.map(genero, GeneroDTO.class);
     }
 
-    public Genero updateGeneroById (@RequestBody Genero genero,
+    public GeneroDTO updateGeneroById (@RequestBody GeneroDTO genero,
                                     @PathVariable Integer generoId) {
         Genero oldGenero = generoRepository.findById(generoId).orElseThrow();
         oldGenero.setName(oldGenero.getName());
         oldGenero.setImage(oldGenero.getImage());
-        return generoRepository.saveAndFlush(oldGenero);
+        oldGenero = generoRepository.saveAndFlush(oldGenero);
+        return modelMapper.map(oldGenero, GeneroDTO.class);
     }
 
     public void deleteGeneroById(@PathVariable Integer generoId){

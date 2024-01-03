@@ -1,5 +1,6 @@
 package com.example.disney.controller;
 
+import com.example.disney.dto.GeneroDTO;
 import com.example.disney.model.Genero;
 import com.example.disney.service.GeneroService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +22,17 @@ public class GeneroController {
     }
 
     @PostMapping
-    public Genero createGenero(@RequestBody Genero genero){
+    public GeneroDTO createGenero(@RequestBody GeneroDTO genero){
         return generoService.createGenero(genero);
     }
 
     @GetMapping("/{generoId}")
-    public Genero getGeneroById(@PathVariable Integer generoId){
+    public GeneroDTO getGeneroById(@PathVariable Integer generoId){
         return generoService.getGeneroById(generoId);
     }
 
     @PutMapping("/{generoId}")
-    public Genero updateGeneroById (@RequestBody Genero genero,
+    public GeneroDTO updateGeneroById (@RequestBody GeneroDTO genero,
                                     @PathVariable Integer generoId){
         return generoService.updateGeneroById(genero, generoId);
     }
