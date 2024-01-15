@@ -1,7 +1,5 @@
 package com.example.disney.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +14,6 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-
 public class PersonajeDTO {
 
 
@@ -26,8 +23,6 @@ public class PersonajeDTO {
     private LocalDate doB;
     private Integer weight;
     private String history;
-
-
     private List<PeliculaDTO> peliculas = new ArrayList<>();
 
 

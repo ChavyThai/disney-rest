@@ -2,14 +2,17 @@ package com.example.disney.service;
 
 import com.example.disney.dto.PersonajeDTO;
 import com.example.disney.model.Personaje;
+import com.example.disney.model.specification.PersonajeSpecification;
 import com.example.disney.repository.PersonajeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PesonajeService {
@@ -50,4 +53,8 @@ public class PesonajeService {
         personajeRepository.deleteById(personajeId);
     }
 
+    public List<Personaje> findPersonajes(Map<String, String> queryMap) {
+        Specification<Personaje> where = Specification.where(queryMap.containsKey("name") ? PersonajeSpecification.fieldLike("name", queryMap.get("name")) : null);
+        return personajeRepository.findAll(where);
+    }
 }

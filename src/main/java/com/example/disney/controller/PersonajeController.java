@@ -7,7 +7,10 @@ import com.example.disney.service.PesonajeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/personajes")
@@ -19,8 +22,8 @@ public class PersonajeController {
 
 
     @GetMapping
-    public List<Personaje> getAllpersonajes(){
-        return personajeService.getAllPersonajes();
+    public List<Personaje> getPersonajeList(@RequestParam(value = "name", required = false) Optional<String> name){
+        return personajeService.findPersonajes(buildQueryMap(name));
     }
 
     @PostMapping
@@ -44,5 +47,10 @@ public class PersonajeController {
         personajeService.deletePersonajeById(personajeId);
     }
 
+    private Map<String, String> buildQueryMap(Optional<String> oName) {
+        Map<String, String> queryParams = new HashMap<>();
+        oName.ifPresent(name -> queryParams.put("name", name));
+        return queryParams;
+    }
 
 }
