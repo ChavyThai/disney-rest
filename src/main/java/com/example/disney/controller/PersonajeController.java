@@ -1,7 +1,6 @@
 package com.example.disney.controller;
 
 import com.example.disney.dto.PersonajeDTO;
-import com.example.disney.model.Pelicula;
 import com.example.disney.model.Personaje;
 import com.example.disney.service.PesonajeService;
 import org.springframework.beans.factory.annotation.Autowired;

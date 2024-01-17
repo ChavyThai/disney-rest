@@ -4,13 +4,16 @@ import com.example.disney.dto.PeliculaDTO;
 import com.example.disney.dto.PersonajeDTO;
 import com.example.disney.model.Pelicula;
 import com.example.disney.model.Personaje;
+import com.example.disney.model.specification.PeliculaSpecification;
 import com.example.disney.repository.PeliculaRepository;
 import com.example.disney.repository.PersonajeRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 
@@ -53,5 +56,12 @@ public class PeliculaService {
         peliculaRepository.deleteById(peliculaId);
     }
 
+    public List<Pelicula> findPeliculas(Map<String, String> queryMap){
+        Specification<Pelicula> where = Specification
+                .where(queryMap.containsKey("name") ? PeliculaSpecification.fieldLike("name", queryMap.get("name")) : null)
+                .and(queryMap.containsKey("calification") ? PeliculaSpecification.numberEqual("calification", Integer.valueOf(queryMap.get("calification"))) : null)
+                .and(queryMap.containsKey("personajeName") ? PeliculaSpecification.personajeNameLike(queryMap.get("personajeName")) : null);
+        return peliculaRepository.findAll(where);
+    }
 
 }
