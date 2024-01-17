@@ -21,10 +21,10 @@ public class PeliculaController {
     PeliculaService peliculaService;
 
     @GetMapping
-    public List<Pelicula> getPeliculaList(@RequestParam(value = "name", required = false) Optional<String> name,
+    public List<Pelicula> getPeliculaList(@RequestParam(value = "title", required = false) Optional<String> title,
                                           @RequestParam(value = "calification", required = false) Optional<Integer> calification,
                                           @RequestParam(value = "personajeName", required = false) Optional<String> personajeName) {
-        return peliculaService.findPeliculas(buildQueryMap(name, calification, personajeName));
+        return peliculaService.findPeliculas(buildQueryMap(title, calification, personajeName));
     }
 
 
@@ -49,10 +49,10 @@ public class PeliculaController {
         peliculaService.deletePeliculaById(peliculaId);
     }
 
-    private Map<String, String> buildQueryMap(Optional<String> oName, Optional<Integer> oCalification, Optional<String> oPersonajeName){
+    private Map<String, String> buildQueryMap(Optional<String> oTitle, Optional<Integer> oCalification, Optional<String> oPersonajeName){
         Map<String, String> queryParams = new HashMap<>();
-        oName.ifPresent(name -> queryParams.put("name", name));
-        oCalification.ifPresent(calification -> queryParams.put("Calification", String.valueOf(calification)));
+        oTitle.ifPresent(title -> queryParams.put("title", title));
+        oCalification.ifPresent(calification -> queryParams.put("calification", String.valueOf(calification)));
         oPersonajeName.ifPresent(personajeName -> queryParams.put("personajeName", personajeName));
         return queryParams;
     }

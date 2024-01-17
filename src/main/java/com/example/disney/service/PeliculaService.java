@@ -58,7 +58,7 @@ public class PeliculaService {
 
     public List<Pelicula> findPeliculas(Map<String, String> queryMap){
         Specification<Pelicula> where = Specification
-                .where(queryMap.containsKey("name") ? PeliculaSpecification.fieldLike("name", queryMap.get("name")) : null)
+                .where(queryMap.containsKey("title") ? PeliculaSpecification.fieldLike("title", queryMap.get("title")) : null)
                 .and(queryMap.containsKey("calification") ? PeliculaSpecification.numberEqual("calification", Integer.valueOf(queryMap.get("calification"))) : null)
                 .and(queryMap.containsKey("personajeName") ? PeliculaSpecification.personajeNameLike(queryMap.get("personajeName")) : null);
         return peliculaRepository.findAll(where);
